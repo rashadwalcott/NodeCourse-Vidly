@@ -5,9 +5,9 @@ const app = express();
 app.use(express.json());
 
 const genres = [
-  { id: 1, genre: "Horror" },
-  { id: 2, genre: "Action" },
-  { id: 3, genre: "Drama" },
+  { id: 1, name: "Horror" },
+  { id: 2, name: "Action" },
+  { id: 3, name: "Drama" },
 ];
 
 //GET All Genres
@@ -29,7 +29,7 @@ app.post("/api/genres", (req, res) => {
 
   const genre = {
     id: genres.length + 1,
-    genre: req.body.genre,
+    name: req.body.name,
   };
   genres.push(genre);
   res.send(genre);
@@ -44,7 +44,7 @@ app.put("/api/genres/:id", (req, res) => {
   const { error } = validateGenre(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  genre.genre = req.body.genre;
+  genre.name = req.body.name;
   res.send(genre);
 });
 
@@ -62,7 +62,7 @@ app.delete("/api/genres/:id", (req, res) => {
 
 //Validate Genre
 function validateGenre(genre) {
-  const schema = Joi.object({ genre: Joi.string().min(3).required() });
+  const schema = Joi.object({ name: Joi.string().min(3).required() });
 
   return schema.validate(genre);
 }
