@@ -26,7 +26,7 @@ const genres = [
 //DELETE Genre with ID
 
 //PORT
-const port = process.env.PORT || 3000
-app.listen(port () => {
-    console.log(`Listening on port ${port}`);
-})
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+});
