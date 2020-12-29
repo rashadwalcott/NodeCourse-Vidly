@@ -12,7 +12,7 @@ const Customer = mongoose.model(
       type: String,
       required: true,
       minlength: 5,
-      maxlength: 50,
+      maxLength: 50,
     },
   })
 );
@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
   res.send(customers);
 });
 
-//POST genre to list
+//POST customer to list
 router.post('/', async (req, res) => {
   const { error } = validateCustomer(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -34,7 +34,7 @@ router.post('/', async (req, res) => {
   res.send(customer);
 });
 
-//UPDATE(PUT) Genre
+//UPDATE(PUT) Customer
 router.put('/:id', async (req, res) => {
   const { error } = validateCustomer(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -52,3 +52,5 @@ router.put('/:id', async (req, res) => {
 
   res.send(customer);
 });
+
+//DELETE
