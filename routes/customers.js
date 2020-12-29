@@ -6,8 +6,17 @@ const router = express.Router('Router');
 const Customer = mongoose.model(
   'Customer',
   new mongoose.Schema({
-    isGold: Boolean,
     name: {
+      type: String,
+      required: true,
+      minlength: 5,
+      maxLength: 50,
+    },
+    isGold: {
+      type: Boolean,
+      default: false,
+    },
+    phone: {
       type: String,
       required: true,
       minlength: 5,
