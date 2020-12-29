@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router('Router');
 
-const Customer = mongoose.model(
+const Customer = new mongoose.model(
   'Customer',
   new mongoose.Schema({
     name: {
@@ -36,8 +36,12 @@ router.post('/', async (req, res) => {
   const { error } = validateCustomer(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  let customer = new Customer({ name: req.body.name });
-  customer = await genre.save();
+  let customer = new Customer({
+    name: req.body.name,
+    isGold: req.body.isGold,
+    phone: req.body.phone,
+  });
+  customer = await customer.save();
 
   res.send(customer);
 });
@@ -50,6 +54,8 @@ router.put('/:id', async (req, res) => {
   const customer = await Customer.findByIdAndUpdate(
     req.params.id,
     { name: req.body.name },
+    { isGold: req.body.isGold },
+    { phone: req.body.phone },
     {
       new: true,
     }
@@ -74,15 +80,19 @@ router.delete('/:id', async (req, res) => {
 //GET Customer with ID
 router.get('/:id', async (req, res) => {
   const Customer = await Customer.findById(req.params.id);
-  if (!Customer)
+  if (!customer)
     return res.status(404).send('The Customer with the given id was not found');
 
-  res.send(Customer);
+  res.send(customer);
 });
 
 //Validate Customer
 function validateCustomer(customer) {
-  const schema = Joi.object({ name: Joi.string().min(3).required() });
+  const schema = Joi.object({
+    name: Joi.string().min(5).max(50).required(),
+    isGold: Joi.boolean(),
+    phone: Joi.string().min(5).max(50).required(),
+  });
 
   return schema.validate(customer);
 }
