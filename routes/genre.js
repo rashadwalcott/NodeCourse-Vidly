@@ -6,11 +6,13 @@ const express = require('express');
 const router = express.Router('Router');
 
 //GET All Genres
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
   try {
     const genres = await Genre.find().sort('name');
     res.send(genres);
-  } catch (ex) {}
+  } catch (ex) {
+    next(ex);
+  }
 });
 
 //POST genre to list
