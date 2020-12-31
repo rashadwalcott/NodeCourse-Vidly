@@ -1,4 +1,5 @@
 require('express-async-errors');
+const winston = require('winston');
 const error = require('./middleware/error');
 const config = require('config');
 const Joi = require('joi');
@@ -12,6 +13,12 @@ const rentals = require('./routes/rentals');
 const users = require('./routes/users');
 const auth = require('./routes/auth');
 const app = express();
+
+// const logConfig = winston.createLogger({
+//   transports: [new winston.transports.File({ filename: 'logfile.log' })],
+// });
+
+// const logger = winston.createLogger(logConfig);
 
 if (!config.get('jwtPrivateKey')) {
   console.error('FATAL ERROR: jwtPrivateKey is not defined');
@@ -37,3 +44,5 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
+
+// module.exports.logger = logger;
