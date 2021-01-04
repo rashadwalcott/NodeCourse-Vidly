@@ -6,6 +6,7 @@ module.exports = createLogger({
     new transports.File({
       filename: 'logfile.log',
     }),
+    new transports.Console({ colorize: true, prettyPink: true }),
     new transports.MongoDB({
       level: 'error',
       //mongo database connection link
