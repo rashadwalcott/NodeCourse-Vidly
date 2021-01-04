@@ -1,13 +1,20 @@
 const { createLogger, transports } = require('winston');
 require('winston-mongodb');
 
-(module.exports = createLogger({
-  transports: new transports.File({
-    filename: 'logfile.log',
-    handleExceptions: true,
-  }),
-})),
-  new transports.MongoDB({
-    db: 'mongodb://localhost:27017/vidly',
-    level: 'error',
-  });
+module.exports = createLogger({
+  transports: [
+    new transports.File({
+      filename: 'logfile.log',
+    }),
+    new transports.MongoDB({
+      level: 'error',
+      //mongo database connection link
+      db: 'mongodb://localhost/vidly',
+      options: {
+        useUnifiedTopology: true,
+      },
+      // A collection to save json formatted logs
+      collection: 'server_logs',
+    }),
+  ],
+});
