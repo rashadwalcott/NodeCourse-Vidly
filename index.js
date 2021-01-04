@@ -14,12 +14,6 @@ const users = require('./routes/users');
 const auth = require('./routes/auth');
 const app = express();
 
-// const logConfig = winston.createLogger({
-//   transports: [new winston.transports.File({ filename: 'logfile.log' })],
-// });
-
-// const logger = winston.createLogger(logConfig);
-
 if (!config.get('jwtPrivateKey')) {
   console.error('FATAL ERROR: jwtPrivateKey is not defined');
   process.exit(1);
