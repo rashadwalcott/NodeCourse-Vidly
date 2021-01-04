@@ -12,15 +12,20 @@ const movies = require('./routes/movies');
 const rentals = require('./routes/rentals');
 const users = require('./routes/users');
 const auth = require('./routes/auth');
+const { log } = require('winston');
 const app = express();
+
+throw new Error('Something failed during startup.');
 
 if (!config.get('jwtPrivateKey')) {
   console.error('FATAL ERROR: jwtPrivateKey is not defined');
   process.exit(1);
 }
-
 mongoose
-  .connect('mongodb://localhost:27017/vidly', { useNewUrlParser: true })
+  .connect('mongodb://localhost:27017/vidly', {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  })
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.error('Could not connect to MongoDB...'));
 

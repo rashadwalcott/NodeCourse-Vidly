@@ -4,6 +4,7 @@ require('winston-mongodb');
 (module.exports = createLogger({
   transports: new transports.File({
     filename: 'logfile.log',
+    handleExceptions: true,
   }),
 })),
   new transports.MongoDB({
