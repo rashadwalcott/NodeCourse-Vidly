@@ -1,5 +1,4 @@
 const express = require('express');
-const winston = require('winston');
 const app = express();
 const logger = require('./middleware/logging');
 
