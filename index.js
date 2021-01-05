@@ -2,9 +2,8 @@ const express = require('express');
 const winston = require('winston');
 const app = express();
 
-require('express-async-errors');
-require('./startup/logger')();
 require('./startup/routes')(app);
+require('./startup/logger')();
 require('./startup/db')();
 require('./startup/config')();
 require('./startup/validation')();
