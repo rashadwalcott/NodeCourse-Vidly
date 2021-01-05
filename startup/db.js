@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const winston = require('winston');
 const config = require('config');
+const logger = require('../middleware/logging');
 
 module.exports = function () {
   const db = config.get('db');
@@ -9,5 +10,5 @@ module.exports = function () {
       useUnifiedTopology: true,
       useNewUrlParser: true,
     })
-    .then(() => winston.info(`Connected to ${db}...`));
+    .then(() => logger.info(`Connected to ${db}...`));
 };
